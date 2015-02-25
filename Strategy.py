@@ -35,7 +35,7 @@ class Strategy(object):
 	def calculate_strategies(attendance_list, half_of_population):
 		"""Create/Revalue all Strategies"""
 		try:
-			# Raises StatisticsError if there it is bimodal or more
+			# Raises StatisticsError if it is not unimodal
 			Strategy("mode", mode(attendance_list))
 		except StatisticsError:
 			Strategy("mode",Counter(attendance_list).most_common(1)[0][0])
@@ -68,15 +68,16 @@ class Strategy(object):
 			Strategy("mirror_three_month_average", Strategy.get_mirror_image(half_of_population, mean(attendance_list[-12:-8])))
 			Strategy("random_attendance")
 
-
-
-
 	@staticmethod
 	def get_mirror_image(half, att):
 		"""Calculate the mirror image around the attendance passed in"""
-		temp = half - att
-		mirror = half + temp
-		return round(mirror)
+		mirror = half + (half - att)
+		if mirror < 0:
+			return 0
+		elif mirror > 100:
+			return 100
+		else:
+			return round(mirror)
 
 	@staticmethod
 	def get_new_key():
@@ -96,7 +97,6 @@ class Strategy(object):
 		trend = round(trend/length)
 		return num_list[-1] + trend
 
-
 	def add_to_dictionary(self):
 		"""Add Strategy to Strategy Class Dictionary"""
 		Strategy.strategies[self.name] = {"value": self.value, "score": self.score}
@@ -113,6 +113,7 @@ class Strategy(object):
 			cls.strategies.clear()
 		else:
 			pass
+
 	@staticmethod
 	def evalScore(attendance):
 		"""Evaluate the scores of each strategy based on attendance"""
@@ -125,6 +126,5 @@ class Strategy(object):
 				Strategy.strategies[key]["score"] += 1
 			else:
 				pass
-				# Strategy.strategies[key]["score"] -= 1
 		
 #=================== Strategy Test Code =============================

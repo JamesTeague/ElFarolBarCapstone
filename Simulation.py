@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 #author: James Teague II (james.teague@drake.edu)
 #date: Spring 2015
 #description: Simulation Module - Handles functions required to run a

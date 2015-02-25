@@ -35,9 +35,6 @@ class Person(object):
 		Person.no_inst += 1
 		self.name = name
 		self.strategies = {}
-		# self.strategy1 = None
-		# self.strategy2 = None
-		# self.strategy3 = None
 		# If user receives random strategy set to true
 		self.has_random = False
 		# Default random strategy in the event it is needed
@@ -54,33 +51,12 @@ class Person(object):
 				if key == "random_attendance":
 					self.has_random = True
 
-		# #self.strategy1 = {"name": key, "value": Strategy.strategies[key]}
-		# self.strategy1 = key
-		# if key == "random_attendance":
-		# 	self.has_random = True
-		# while key == self.strategy1:
-		# 	key = Strategy.get_new_key()
-		# #self.strategy2 = {"name": key, "value": Strategy.strategies[key]}
-		# self.strategy2 = key
-		# if key == "random_attendance":
-		# 	self.has_random = True
-		# while key == self.strategy1 or key == self.strategy2:
-		# 	key = Strategy.get_new_key()
-		# #self.strategy3 = {"name": key, "value": Strategy.strategies[key]}
-		# self.strategy3 = key
-		# if key == "random_attendance":
-		# 	self.has_random = True
 	def eval_strategies(self):
 		"""Finds strategy with highest score then calls function to employ the strategy"""
 		strategy = []
 		for key in self.strategies:
 			# Append tuple, ex. ("min_attendance", 0)
 			strategy.append((key, Strategy.strategies[key]["score"]))
-		# strategy.append(Strategy.strategies[self.strategy1]["score"])
-		# strategy.append(Strategy.strategies[self.strategy2]["score"])
-		# strategy.append(Strategy.strategies[self.strategy3]["score"])
-		#TODO complete evaluating scores
-		# max_ndx = strategy.index(max(strategy))
 		# Get the max score from strategy array by checking second spot in the tuple
 		# but returning the key
 		max_key = max(strategy,key=itemgetter(1))[0]
@@ -130,7 +106,6 @@ class Person(object):
 				self.random_dict["score"] += 1
 			else:
 				pass
-				# self.random_dict["score"] -= 1
 
 	def get_random_attendance(self):
 		"""Chose some random weeks attendance and store it in the random dictionary"""

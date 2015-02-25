@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 #author: James Teague II
 #date: Spring 2015
 #description: ElFarolBar.py - Acts as a driver for the Simulation
