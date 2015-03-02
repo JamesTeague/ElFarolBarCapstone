@@ -21,6 +21,7 @@ class Strategy(object):
     """
 	no_inst = 0
 	strategies = {}
+	strategy_progression = open("stratProgression.txt", "w")
 	def __init__(self, name, value="random", score=0):
 		"""Initialize Strategy with a name, value and score. Then add it to the Class Dictionary"""
 		# Increment number of instances of Strategy
@@ -74,8 +75,8 @@ class Strategy(object):
 		mirror = half + (half - att)
 		if mirror < 0:
 			return 0
-		elif mirror > 100:
-			return 100
+		elif mirror > 10:
+			return 10
 		else:
 			return round(mirror)
 
@@ -120,11 +121,18 @@ class Strategy(object):
 		for key in Strategy.strategies:
 			if Strategy.strategies[key]["value"] == "random":
 				pass
-			elif int(Strategy.strategies[key]["value"]) < 2 and attendance < 2:
+			elif int(Strategy.strategies[key]["value"]) < 6 and attendance < 6:
 				Strategy.strategies[key]["score"] += 1
-			elif int(Strategy.strategies[key]["value"]) >= 2 and attendance >= 2:
+			elif int(Strategy.strategies[key]["value"]) >= 6 and attendance >= 6:
 				Strategy.strategies[key]["score"] += 1
 			else:
 				pass
-		
+	
+	@staticmethod
+	def print_strategies():
+		""" Print progression to text file. Debugging/Test purposes."""
+		for k,v in sorted(Strategy.strategies.items()):
+			Strategy.strategy_progression.write(str(k) + " " + str(v) + "\n")
+		Strategy.strategy_progression.write("----------END OF STRATEGIES----------"+ "\n")
+		Strategy.strategy_progression.write("\n")
 #=================== Strategy Test Code =============================

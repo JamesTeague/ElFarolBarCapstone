@@ -4,9 +4,11 @@
 #	proper simulation of the El Farol Bar Problem
 from Person import Person
 from Strategy import Strategy
+import const
 class Simulation(object):
 	community = {}
 	past_attendance = Person.recent_memory[0:]
+	simulation_progression = open("simProgression.txt","w")
 
 	@staticmethod
 	def populate_community():
@@ -14,7 +16,7 @@ class Simulation(object):
 
 			Create instances of the Person for the simulation
 		"""
-		for i in range(1,4):
+		for i in range(1,11):
 			Simulation.community["person"+str(i)] = Person("person"+str(i))
 
 	@staticmethod
@@ -45,6 +47,7 @@ class Simulation(object):
 		print(count)
 		Strategy.evalScore(count)
 		Simulation.eval_randoms(count)
+		Simulation.add_to_memory(count)
 
 	@staticmethod
 	def eval_randoms(count):
@@ -57,27 +60,22 @@ class Simulation(object):
 		""" Add week's attendance to Simulation memory and Person memory"""
 		Simulation.past_attendance.append(count)
 		Person.add_to_memory(count)
+		Simulation.simulation_progression.write(str(Person.recent_memory))
+		Simulation.simulation_progression.write("\n")
+
+	@staticmethod
+	def revalue_strategies():
+		""" Call to calulate strategies again for the new results"""
+		# Clear old values out
+		Strategy.clear_strategies()
+		Strategy.calculate_strategies(Person.recent_memory, int(Person.get_no_of_instances()/2))
 
 	@staticmethod
 	def print_people_strategies():
 		""" Test Function
 			Print Communities strategies along with random if present, what they chose, and if they went
 		"""
-		for person in Simulation.community:
-			print(person+":")
-			print(Simulation.community[person].went_to_bar())
-			print(Simulation.community[person].strat_chose)
-			print(Simulation.community[person].strategies)
-			if Simulation.community[person].has_random:
-				print(Simulation.community[person].random_dict)
+		for person in sorted(Simulation.community):
+			Simulation.community[person].print_info()
+		Person.person_progression.write("--------------- END OF WEEK ---------------" + "\n")
 #============== Simulation Test Code ========================
-# Simulation.populate_community()
-# Simulation.strategize_community()
-# Simulation.simulate_weekend()
-# Simulation.take_attendance()
-# print("--------------------")
-# print(Simulation.past_attendance)
-# print(Strategy.strategies)
-# Simulation.print_people_strategies()
-
-

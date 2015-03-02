@@ -23,10 +23,12 @@ class Person(object):
         	score for indivdual person object
     """
 	no_inst = 0
-	#Randomize attendance of all persons memory
 	recent_memory = []
+	person_progression = open("person_progression.txt", "w")
+	
+	#Randomize attendance of all persons memory
 	for i in range(0, 15):
-		recent_memory.append(randrange(0,4))
+		recent_memory.append(randrange(0,11))
 
 	def __init__(self, name):
 		"""Initialize Person with a name for reference and dictionary for strategy keys"""
@@ -83,12 +85,12 @@ class Person(object):
 		"""Makes decision on whether to go or stay depending on the attendance"""
 		# If attendance is random search own random value
 		if attendance == "random":
-			if int(self.random_dict["value"]) < 2:
+			if int(self.random_dict["value"]) < 6:
 				self.attend = True
 			else:
 				self.attend = False
 		# If over 59 stay home
-		elif attendance >= 2:
+		elif attendance >= 6:
 			self.attend = False
 		#else go to the bar
 		else:
@@ -100,9 +102,9 @@ class Person(object):
 			or right for the current week
 		"""
 		if self.has_random:
-			if self.random_dict["value"] < 2 and attendance < 2:
+			if self.random_dict["value"] < 6 and attendance < 6:
 				self.random_dict["score"] += 1
-			elif self.random_dict["value"] >= 2 and attendance >= 2:
+			elif self.random_dict["value"] >= 6 and attendance >= 6:
 				self.random_dict["score"] += 1
 			else:
 				pass
@@ -111,6 +113,18 @@ class Person(object):
 		"""Chose some random weeks attendance and store it in the random dictionary"""
 		if self.has_random:
 			self.random_dict["value"] = choice(Person.recent_memory)
+
+	def print_info(self):
+		""" Print progression to text file. Debugging/Test purposes."""
+		Person.person_progression.write(self.name.upper()+":"+ "\n")
+		Person.person_progression.write(str(self.went_to_bar()).upper()+ "\n")
+		Person.person_progression.write("My Pick: " + self.strat_chose+ "\n")
+		Person.person_progression.write("MY ARSENAL: \n")
+		for k in sorted(self.strategies.items()):
+			Person.person_progression.write(str(k) + "\n")
+		if self.has_random:
+			Person.person_progression.write(str(self.random_dict) + "\n")
+		Person.person_progression.write("\n")
 
 	@classmethod
 	def get_no_of_instances(cls):
