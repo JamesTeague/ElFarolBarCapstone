@@ -24,7 +24,7 @@ class Person(object):
     """
 	no_inst = 0
 	recent_memory = []
-	person_progression = open("person_progression.txt", "w")
+	person_progression = open("person_progression.rtf", "w")
 	
 	#Randomize attendance of all persons memory
 	for i in range(0, 15):

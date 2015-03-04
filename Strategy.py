@@ -21,7 +21,7 @@ class Strategy(object):
     """
 	no_inst = 0
 	strategies = {}
-	strategy_progression = open("stratProgression.txt", "w")
+	strategy_progression = open("stratProgression.rtf", "w")
 	def __init__(self, name, value="random", score=0):
 		"""Initialize Strategy with a name, value and score. Then add it to the Class Dictionary"""
 		# Increment number of instances of Strategy

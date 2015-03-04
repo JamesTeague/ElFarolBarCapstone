@@ -8,7 +8,7 @@ import const
 class Simulation(object):
 	community = {}
 	past_attendance = Person.recent_memory[0:]
-	simulation_progression = open("simProgression.txt","w")
+	simulation_progression = open("simProgression.rtf","w")
 
 	@staticmethod
 	def populate_community():
