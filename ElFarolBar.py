@@ -4,6 +4,7 @@
 #description: ElFarolBar.py - Acts as a driver for the Simulation
 
 from Simulation import Simulation as Sim, Person, Strategy
+import graphics
 
 def set_up_simulation():
 	Sim.populate_community()
