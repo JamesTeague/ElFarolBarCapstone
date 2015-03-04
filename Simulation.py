@@ -8,7 +8,7 @@ import const
 class Simulation(object):
 	community = {}
 	past_attendance = Person.recent_memory[0:]
-	simulation_progression = open("simProgression.rtf","w")
+	simulation_progression = open("/data/simProgression.rtf","w")
 
 	@staticmethod
 	def populate_community():
@@ -78,4 +78,3 @@ class Simulation(object):
 		for person in sorted(Simulation.community):
 			Simulation.community[person].print_info()
 		Person.person_progression.write("--------------- END OF WEEK ---------------" + "\n")
-#============== Simulation Test Code ========================

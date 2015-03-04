@@ -24,7 +24,7 @@ class Person(object):
     """
 	no_inst = 0
 	recent_memory = []
-	person_progression = open("person_progression.rtf", "w")
+	person_progression = open("/data/person_progression.rtf", "w")
 	
 	#Randomize attendance of all persons memory
 	for i in range(0, 15):
@@ -136,5 +136,3 @@ class Person(object):
 		"""Add the attendance to the memory of the Person, and remove the oldest value"""
 		cls.recent_memory.pop(0)
 		cls.recent_memory.append(attendance)
-
-#=================== Person Test Code =============================
